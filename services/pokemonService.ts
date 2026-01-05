@@ -67,3 +67,35 @@ export interface PokemonMove {
   version_group_details: { level_learned_at: number; move_learn_method: { name: string } }[];
 }
 
+// Fetch Pokémon species to get evolution chain
+export interface PokemonSpecies {
+  evolution_chain: { url: string };
+}
+
+export const fetchPokemonSpecies = async (name: string): Promise<PokemonSpecies> => {
+  const res = await api.get(`/pokemon-species/${name}`);
+  return res.data;
+};
+
+export interface EvolutionNode {
+  species: { name: string };
+  evolves_to: EvolutionNode[];
+}
+
+export interface EvolutionChain {
+  chain: EvolutionNode;
+}
+
+export const fetchEvolutionChain = async (url: string): Promise<EvolutionChain> => {
+  const res = await api.get(url);
+  return res.data;
+};
+
+// Flatten the evolution chain recursively
+export const flattenEvolutionChain = (node: EvolutionNode): string[] => {
+  const evolutions = [node.species.name];
+  node.evolves_to.forEach((child) => {
+    evolutions.push(...flattenEvolutionChain(child));
+  });
+  return evolutions;
+};
