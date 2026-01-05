@@ -5,6 +5,16 @@ export interface PokemonListItem{
     url: string;
 }
 
+export interface Stat {
+  base_stat: number;           // The numeric value of the stat
+  effort: number;              // Effort points (usually 0 for most)
+  stat: {
+    name: string;              // Stat name: "hp", "attack", "defense", etc.
+    url: string;               // URL to stat info in PokéAPI
+  };
+}
+
+
 export interface PokemonListResponse{
     count: number;
     next: string | null;
@@ -27,6 +37,7 @@ export interface PokemonDetail{
     };
     };
     types: {slot: number; type: {name: string; url: string}}[];
+    stats: Stat[];
 
    
 

@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PokéDex Lite
 
-## Getting Started
+A lightweight Next.js PokéDex demo that fetches data from the PokéAPI and demonstrates basic UI primitives, React Query for data fetching, and Tailwind styling.
 
-First, run the development server:
+---
+
+## 🚀 Getting started
+
+Install dependencies and run the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project structure & file summary
 
-## Learn More
+Below is a concise tree and one-line summary for each important file or folder.
 
-To learn more about Next.js, take a look at the following resources:
+### Root
+- `package.json` — Project scripts, dependencies (Next 16, React 19, React Query, axios, Tailwind, etc.). ✅
+- `README.md` — This file (updated with structure & usage).
+- `components.json` — shadcn/ui configuration + alias mappings.
+- `next.config.ts` — Next.js configuration (image domains, strict mode).
+- `tsconfig.json` — TypeScript compiler options and path aliases.
+- `eslint.config.mjs` — ESLint config for Next + TypeScript.
+- `postcss.config.mjs` — PostCSS/Tailwind plugin config.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### public/
+- `pokeball.png` — Pokéball asset used on the homepage.
+- `*.svg` — Misc. public assets (Next/Vercel icons, etc.).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### app/ (Next.js app directory)
+- `layout.tsx` — Root layout wrapping pages with `QueryClientProvider`.
+- `globals.css` — Tailwind imports, theme CSS variables and base styles.
+- `page.tsx` — Home page with a rotating Pokéball, `SearchForm`, and `PokemonList`.
+- `page.module.css` — Small CSS module for 3D rotation used in header.
+- `pokemon/[name]/page.tsx` — Pokémon detail page; fetches and renders Pokémon detail.
+- `test/page.tsx` — Test page that logs a list of Pokémon to the console.
 
-## Deploy on Vercel
+### components/
+- `components/common/SearchForm.tsx` — Search UI with `react-hook-form` + `zod`; navigates to `/pokemon/:name`.
+- `components/pokemon/PokemonList.tsx` — Fetches and displays a grid of Pokémon cards (React Query).
+- `components/pokemon/PokemonCard.tsx` — Card component for each Pokémon with temporary type color styling.
+- `components/pokemon/PokemonTCGCard.tsx` — TCG-like card layout (image, HP, attacks, stats).
+- `components/ui/button.tsx` — Button primitive (CVA-driven variants + `cn`).
+- `components/ui/card.tsx` — Reusable card primitives (Card, CardHeader, etc.).
+- `components/ui/input.tsx` — Styled input used by `SearchForm`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### lib/
+- `lib/axios.ts` — `axios` instance configured to `https://pokeapi.co/api/v2`.
+- `lib/queryClient.ts` — React Query `QueryClient` with default options.
+- `lib/utils.ts` — `cn()` helper (class concat + tailwind-merge).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### services/
+- `services/pokemonService.ts` — API layer with types and functions `fetchPokemonList` and `fetchPokemonDetail`.
+
+---
+
+## 💡 Notes & tips
+
+- Data fetching is centralized in `services/pokemonService.ts` and used via React Query.
+- UI primitives are in `components/ui/`; feature components live in `components/pokemon/` and `components/common/`.
+- Images from PokéAPI are allowed via `next.config.ts` domains.
+
+> Tip: To add more fields to the detail page, extend `PokemonDetail` in `services/pokemonService.ts` and render the values in `app/pokemon/[name]/page.tsx`.
+
+---
+
+## ✅ Next steps I can help with
+
+- Add a `STRUCTURE.md` or `CONTRIBUTING.md` with onboarding notes.
+- Add tests or TypeScript refinements (e.g., stronger typings for sprites).
+- Improve `PokemonCard` to include sprite images and type badges.
+
+If you'd like, I can create one of the above files now — tell me which one to add.
