@@ -19,12 +19,16 @@ export default function PokemonDetailPage() {
 
   const mainSprite =
     data.sprites.other?.official_artwork?.front_default ?? data.sprites.front_default ?? "/pokeball.png";
-
   // Mock attacks for demo (you can replace with API data later)
-  const demoAttacks = [
-    { name: "Tackle", damage: 10, description: "A physical attack to strike the opponent." },
-    { name: "Quick Attack", damage: 15, description: "Strikes fast with a priority hit." },
-  ];
+ const demoAttacks =
+  data?.moves
+    .slice(0, 3) // take first 3 moves
+    .map((m) => ({
+      name: m.move.name.replace("-", " "),
+      damage: Math.floor(Math.random() * 50) + 10, // random damage
+      description: `Learned via ${m.version_group_details[0]?.move_learn_method.name || "unknown"}`,
+    })) || [];
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100">

@@ -39,6 +39,7 @@ export interface PokemonDetail{
     types: {slot: number; type: {name: string; url: string}}[];
     stats: Stat[];
 
+    moves: PokemonMove[];
    
 
 }
@@ -59,3 +60,10 @@ export const fetchPokemonDetail = async (
     const res = await api.get(`/pokemon/${name}`);
     return res.data;
 };
+
+
+export interface PokemonMove {
+  move: { name: string; url: string };
+  version_group_details: { level_learned_at: number; move_learn_method: { name: string } }[];
+}
+

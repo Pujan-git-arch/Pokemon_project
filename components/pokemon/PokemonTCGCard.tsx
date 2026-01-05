@@ -58,6 +58,8 @@ const PokemonTCGCard: FC<PokemonTCGCardProps> = ({
   const mainType = types[0] || "normal";
   const gradient = typeGradients[mainType] || typeGradients.normal;
 
+  
+
   return (
     <div className="w-[340px] sm:w-[360px] md:w-[380px] rounded-2xl shadow-2xl bg-white overflow-hidden transform transition-transform duration-300 hover:rotate-2 hover:-rotate-1 hover:scale-105">
       {/* Top Gradient Header */}
