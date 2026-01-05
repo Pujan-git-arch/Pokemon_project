@@ -18,10 +18,17 @@ export interface PokemonDetail{
     height: number;
     weight: number;
     sprites: {
-        front_default: string;
-        [key:string]: string | null;
+        front_default: string |null;
+        // [key:string]: string | null;
+         other?: {
+      official_artwork?: {
+        front_default: string | null;
+      };
+    };
     };
     types: {slot: number; type: {name: string; url: string}}[];
+
+   
 
 }
 
